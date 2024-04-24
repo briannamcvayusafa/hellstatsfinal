@@ -59,4 +59,3 @@ v = VetiverModel.from_pin(b, 'penguin_model')
 from vetiver import VetiverAPI
 app = VetiverAPI(v, check_prototype=True)
 ```
-
