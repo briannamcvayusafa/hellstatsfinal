@@ -25,7 +25,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n2"
+    "text": "fuck"
   },
   {
     "objectID": "lab1.html",
@@ -74,7 +74,7 @@
     "href": "model.html#get-some-information",
     "title": "Model",
     "section": "Get some information",
-    "text": "Get some information\n\n\nCode\nprint(f\"R^2 {model.score(X,y)}\")\nprint(f\"Intercept {model.intercept_}\")\nprint(f\"Columns {X.columns}\")\nprint(f\"Coefficients {model.coef_}\")\n\n\nR^2 0.8555368759537614\nIntercept 2169.2697209393973\nColumns Index(['bill_length_mm', 'species_Chinstrap', 'species_Gentoo', 'sex_male'], dtype='object')\nCoefficients [  32.53688677 -298.76553447 1094.86739145  547.36692408]\n\n\n\n\nCode\nfrom vetiver import VetiverModel\nv = VetiverModel(model, model_name='penguin_model', prototype_data=X)\n\n\n\n\nCode\nimport pins\nfrom fastapi import FastAPI\nfrom vetiver import vetiver_pin_write\nb = pins.board_folder('data/model', allow_pickle_read=True)\nvetiver_pin_write(b, v)\n\nv = VetiverModel.from_pin(b, 'penguin_model')\nfrom vetiver import VetiverAPI\napp = VetiverAPI(v, check_prototype=True)\n\n\nModel Cards provide a framework for transparent, responsible reporting. \n Use the vetiver `.qmd` Quarto template as a place to start, \n with vetiver.model_card()\nWriting pin:\nName: 'penguin_model'\nVersion: 20240424T135718Z-82872\n\n\n\n\nCode\nmain = FastAPI(\n    description=\"\"\"MCVAY &lt;span style=\"color: gold;\"&gt;FINAL&lt;/span&gt; PROJECT\"\"\",\n\n    swagger_ui_parameters={\n        \"useUnsafeMarkdown\": True\n    }\n)"
+    "text": "Get some information\n\n\nCode\nprint(f\"R^2 {model.score(X,y)}\")\nprint(f\"Intercept {model.intercept_}\")\nprint(f\"Columns {X.columns}\")\nprint(f\"Coefficients {model.coef_}\")\n\n\nR^2 0.8555368759537614\nIntercept 2169.2697209393973\nColumns Index(['bill_length_mm', 'species_Chinstrap', 'species_Gentoo', 'sex_male'], dtype='object')\nCoefficients [  32.53688677 -298.76553447 1094.86739145  547.36692408]\n\n\n\n\nCode\nfrom vetiver import VetiverModel\nv = VetiverModel(model, model_name='penguin_model', prototype_data=X)\n\n\n\n\nCode\nimport pins\nfrom fastapi import FastAPI\nfrom vetiver import vetiver_pin_write\nb = pins.board_folder('data/model', allow_pickle_read=True)\nvetiver_pin_write(b, v)\n\nv = VetiverModel.from_pin(b, 'penguin_model')\nfrom vetiver import VetiverAPI\napp = VetiverAPI(v, check_prototype=True)\n\n\nModel Cards provide a framework for transparent, responsible reporting. \n Use the vetiver `.qmd` Quarto template as a place to start, \n with vetiver.model_card()\nWriting pin:\nName: 'penguin_model'\nVersion: 20240424T142205Z-82872"
   },
   {
     "objectID": "index.html",
