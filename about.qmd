@@ -3,4 +3,4 @@ title: "About"
 jupyter: python3
 ---
 
-fuck
+FUCK
