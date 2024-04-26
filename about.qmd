@@ -8,31 +8,31 @@ format:
 ## This is my project
 This project creates a model about penguins. 
 ```{python}
-from PIL import Image
-myImage = Image.open("imgs/screaming_crying.jpg");
-myImage.show();
+# from PIL import Image
+# myImage = Image.open("imgs/screaming_crying.jpg");
+# myImage.show();
 ```
 
 ```{python}
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
- 
-app = FastAPI()
- 
-app.mount("/imgs", StaticFiles(directory="imgs"), name='images')
- 
-@app.get("/", response_class=HTMLResponse)
-def serve():
-    return """
-    <html>
-        <head>
-            <title></title>
-        </head>
-        <body>
-        <img src="imgs/screaming_crying.png">
-        <h1>FUCK</h1>
-        </body>
-    </html>
-    """
+# from fastapi import FastAPI
+# from fastapi.responses import HTMLResponse
+# from fastapi.staticfiles import StaticFiles
+#  
+# app = FastAPI()
+#  
+# app.mount("/imgs", StaticFiles(directory="imgs"), name='images')
+#  
+# @app.get("/", response_class=HTMLResponse)
+# def serve():
+#     return """
+#     <html>
+#         <head>
+#             <title></title>
+#         </head>
+#         <body>
+#         <img src="imgs/screaming_crying.png">
+#         <h1>FUCK</h1>
+#         </body>
+#     </html>
+#     """
 ```
