@@ -135,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./eda.html"> 
-<span class="menu-text">McVayFinalProjectAgain</span></a>
+<span class="menu-text">EDA</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./model.html" aria-current="page"> 
@@ -160,6 +160,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#get-data" id="toc-get-data" class="nav-link active" data-scroll-target="#get-data">Get Data</a></li>
   <li><a href="#define-model-and-fit" id="toc-define-model-and-fit" class="nav-link" data-scroll-target="#define-model-and-fit">Define Model and Fit</a></li>
   <li><a href="#get-some-information" id="toc-get-some-information" class="nav-link" data-scroll-target="#get-some-information">Get some information</a></li>
+  <li><a href="#vetiver" id="toc-vetiver" class="nav-link" data-scroll-target="#vetiver">Vetiver</a></li>
+  <li><a href="#fastapi" id="toc-fastapi" class="nav-link" data-scroll-target="#fastapi">FastAPI</a></li>
   </ul>
 </nav>
     </div>
@@ -185,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="89a727a2" class="cell" data-execution_count="1">
+<div id="d7feb04c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> penguins</span>
@@ -197,7 +199,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="get-data" class="level2">
 <h2 class="anchored" data-anchor-id="get-data">Get Data</h2>
-<div id="68617f2a" class="cell" data-execution_count="2">
+<p>This code imports the penguin data.</p>
+<div id="fe9db8fd" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> penguins.load_penguins().dropna()</span>
@@ -267,7 +270,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="define-model-and-fit" class="level2">
 <h2 class="anchored" data-anchor-id="define-model-and-fit">Define Model and Fit</h2>
-<div id="0acd0544" class="cell" data-execution_count="3">
+<p>This code creates the model that we’re testing.</p>
+<div id="a0b199c1" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> get_dummies(df[[<span class="st">'bill_length_mm'</span>, <span class="st">'species'</span>, <span class="st">'sex'</span>]], drop_first <span class="op">=</span> <span class="va">True</span>)</span>
@@ -279,7 +283,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="get-some-information" class="level2">
 <h2 class="anchored" data-anchor-id="get-some-information">Get some information</h2>
-<div id="158d2a28" class="cell" data-execution_count="4">
+<p>This code finds the R^2 error, the intercept of the model, the names of each column, and the coefficients of the model.</p>
+<div id="da767c86" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R^2 </span><span class="sc">{</span>model<span class="sc">.</span>score(X,y)<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -294,14 +299,20 @@ Columns Index(['bill_length_mm', 'species_Chinstrap', 'species_Gentoo', 'sex_mal
 Coefficients [  32.53688677 -298.76553447 1094.86739145  547.36692408]</code></pre>
 </div>
 </div>
-<div id="7131063d" class="cell" data-execution_count="5">
+</section>
+<section id="vetiver" class="level2">
+<h2 class="anchored" data-anchor-id="vetiver">Vetiver</h2>
+<div id="0971fbc8" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(model, model_name<span class="op">=</span><span class="st">'penguin_model'</span>, prototype_data<span class="op">=</span>X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="f9beb5e4" class="cell" data-execution_count="6">
+</section>
+<section id="fastapi" class="level2">
+<h2 class="anchored" data-anchor-id="fastapi">FastAPI</h2>
+<div id="4c131bc9" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pins</span>
@@ -320,7 +331,7 @@ Coefficients [  32.53688677 -298.76553447 1094.86739145  547.36692408]</code></p
  with vetiver.model_card()
 Writing pin:
 Name: 'penguin_model'
-Version: 20240424T205154Z-565d5</code></pre>
+Version: 20240426T004941Z-565d5</code></pre>
 </div>
 </div>
 

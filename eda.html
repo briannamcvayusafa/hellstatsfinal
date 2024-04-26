@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>McVayFinalProjectAgain</title>
+<title>McVayFinalProjectAgain - EDA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./eda.html" aria-current="page"> 
-<span class="menu-text">McVayFinalProjectAgain</span></a>
+<span class="menu-text">EDA</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./model.html"> 
@@ -156,6 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#penguin-size-and-mass-by-sex-and-species" id="toc-penguin-size-and-mass-by-sex-and-species" class="nav-link active" data-scroll-target="#penguin-size-and-mass-by-sex-and-species">Penguin Size and Mass by Sex and Species</a></li>
   <li><a href="#penguin-size-vs-mass-by-species" id="toc-penguin-size-vs-mass-by-species" class="nav-link" data-scroll-target="#penguin-size-vs-mass-by-species">Penguin Size vs Mass by Species</a></li>
+  <li><a href="#penguin-species-model-with-lda" id="toc-penguin-species-model-with-lda" class="nav-link" data-scroll-target="#penguin-species-model-with-lda">Penguin Species Model with LDA</a></li>
   </ul>
 </nav>
     </div>
@@ -164,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">McVayFinalProjectAgain</h1>
+<h1 class="title">EDA</h1>
 </div>
 
 
@@ -329,6 +330,7 @@ Attaching package: 'dplyr'</code></pre>
 </section>
 <section id="penguin-size-vs-mass-by-species" class="level2">
 <h2 class="anchored" data-anchor-id="penguin-size-vs-mass-by-species">Penguin Size vs Mass by Species</h2>
+<p>This graph compares the average body mass of the penguins to their bill lengths. It can be seen that the species have pretty clear groups - for example, gentoo penguins seem to have higher body masses and bill lengths than adelle penguins.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -356,6 +358,32 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="penguin-species-model-with-lda" class="level2">
+<h2 class="anchored" data-anchor-id="penguin-species-model-with-lda">Penguin Species Model with LDA</h2>
+<p>This model seeks to predict penguin species by their bill length.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidymodels)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># penguin_split &lt;- initial_split(df, prop = 0.8)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># penguin_train &lt;- training(penguin_split)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># penguin_test &lt;- testing(penguin_split)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># lda_spec &lt;- discrim_linear() %&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         set_mode("classification") %&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         set_engine("MASS")</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># lda_fit&lt;- lda_spec %&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     fit(species~bill_length_mm, data = penguin_train)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># lda_fit_preds_test &lt;- augment(lda_fit , new_data = penguin_test) %&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#         select(species, bill_length_mm, .pred_class)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># lda_fit_preds_test %&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   conf_mat(truth = species, estimate = .pred_class)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># lr_metrics &lt;- metric_set(accuracy, sensitivity, specificity, ppv)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># lda_fit_preds_test%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   lr_metrics(truth = species, estimate = .pred_class, event_level = "second")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We can see here that the model is not the best at predicting the penguins’ species. It has decent specificity, but not much else.</p>
 
 
 </section>
