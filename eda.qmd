@@ -1,5 +1,5 @@
 ---
-title: "McVayFinalProjectAgain"
+title: "EDA"
 format:
   html:
     code-fold: true
@@ -30,7 +30,7 @@ df %>%
 ```
 
 ## Penguin Size vs Mass by Species
-
+This graph compares the average body mass of the penguins to their bill lengths. It can be seen that the species have pretty clear groups - for example, gentoo penguins seem to have higher body masses and bill lengths than adelle penguins.
 
 ```{r}
 df %>%
@@ -38,3 +38,29 @@ df %>%
   geom_point() + 
   geom_smooth(method = "lm")
 ```
+
+## Penguin Species Model with LDA
+This model seeks to predict penguin species by their bill length.
+
+```{r}
+library(tidymodels) 
+library(discrim) 
+library(ISLR) 
+library(ISLR2) 
+penguin_split <- initial_split(df, prop = 0.8)
+penguin_train <- training(penguin_split)
+penguin_test <- testing(penguin_split)
+lda_spec <- discrim_linear() %>%
+        set_mode("classification") %>%
+        set_engine("MASS")
+lda_fit<- lda_spec %>%
+    fit(species~bill_length_mm, data = penguin_train)
+lda_fit_preds_test <- augment(lda_fit , new_data = penguin_test) %>%
+        select(species, bill_length_mm, .pred_class) 
+lda_fit_preds_test %>%
+  conf_mat(truth = species, estimate = .pred_class)
+lr_metrics <- metric_set(accuracy, sensitivity, specificity, ppv)
+lda_fit_preds_test%>%
+  lr_metrics(truth = species, estimate = .pred_class, event_level = "second")
+```
+We can see here that the model is not the best at predicting the penguins' species. It has decent specificity, but not much else.

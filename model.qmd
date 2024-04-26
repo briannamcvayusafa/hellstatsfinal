@@ -15,8 +15,7 @@ from sklearn import preprocessing
 ```
 
 ## Get Data
-
-
+This code imports the penguin data.
 ```{python}
 df = penguins.load_penguins().dropna()
 
@@ -24,8 +23,7 @@ df.head(3)
 ```
 
 ## Define Model and Fit
-
-
+This code creates the model that we're testing.
 ```{python}
 X = get_dummies(df[['bill_length_mm', 'species', 'sex']], drop_first = True)
 y = df['body_mass_g']
@@ -34,8 +32,7 @@ model = LinearRegression().fit(X, y)
 ```
 
 ## Get some information
-
-
+This code finds the R^2 error, the intercept of the model, the names of each column, and the coefficients of the model.
 ```{python}
 print(f"R^2 {model.score(X,y)}")
 print(f"Intercept {model.intercept_}")
@@ -43,11 +40,13 @@ print(f"Columns {X.columns}")
 print(f"Coefficients {model.coef_}")
 ```
 
+## Vetiver
 ```{python}
 from vetiver import VetiverModel
 v = VetiverModel(model, model_name='penguin_model', prototype_data=X)
 ```
 
+##FastAPI
 ```{python}
 import pins
 from fastapi import FastAPI
