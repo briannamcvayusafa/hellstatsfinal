@@ -12,7 +12,6 @@ format:
 library(palmerpenguins)
 library(dplyr)
 library(ggplot2)
-library(parsnip)
 library(discrim)
 library(tidymodels)
 
