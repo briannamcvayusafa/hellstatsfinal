@@ -44,9 +44,6 @@ This model seeks to predict penguin species by their bill length.
 
 ```{r}
 library(tidymodels) 
-library(discrim) 
-library(ISLR) 
-library(ISLR2) 
 penguin_split <- initial_split(df, prop = 0.8)
 penguin_train <- training(penguin_split)
 penguin_test <- testing(penguin_split)

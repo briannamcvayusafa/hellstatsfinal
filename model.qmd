@@ -46,7 +46,7 @@ from vetiver import VetiverModel
 v = VetiverModel(model, model_name='penguin_model', prototype_data=X)
 ```
 
-##FastAPI
+## FastAPI
 ```{python}
 import pins
 from fastapi import FastAPI
