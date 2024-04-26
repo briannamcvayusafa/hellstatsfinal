@@ -12,6 +12,9 @@ format:
 library(palmerpenguins)
 library(dplyr)
 library(ggplot2)
+library(parsnip)
+library(discrim)
+library(tidymodels)
 
 df <- palmerpenguins::penguins
 ```
@@ -43,7 +46,6 @@ df %>%
 This model seeks to predict penguin species by their bill length.
 
 ```{r}
-library(tidymodels)
 penguin_split <- initial_split(df, prop = 0.8)
 penguin_train <- training(penguin_split)
 penguin_test <- testing(penguin_split)
